@@ -16,8 +16,9 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from cms.models import CMSPlugin
 
 
-CSS_WIDTH_RE = re.compile(r'^\d+(?:px|%)$')
-CSS_HEIGHT_RE = re.compile(r'^\d+px$')
+#CSS_WIDTH_RE = re.compile(r'^\d+(?:px|%)$')
+#CSS_HEIGHT_RE = re.compile(r'^\d+px$')
+CSS_RE = re.compile(r'^\d+(?:px|%)$')
 
 
 @python_2_unicode_compatible
@@ -48,7 +49,7 @@ class GoogleCalendar(CMSPlugin):
         verbose_name=_('Height'),
         max_length=6,
         default='400px',
-        help_text=_('Height of the calendar, including the CSS length units (e.g. "400px" or "400rem").'),
+        help_text=_('Height of the calendar, including the CSS length units (e.g. "100%", "400px" or "400rem").'),
     )
 
     # Add an app namespace to related_name to avoid field name clashes
@@ -74,11 +75,11 @@ class GoogleCalendar(CMSPlugin):
         return display
 
     def clean(self):
-        if self.width and not CSS_WIDTH_RE.match(self.width):
+        if self.width and not CSS_RE.match(self.width):
             raise ValidationError(
                 _('Width must be a positive integer followed by "px" or "%".')
             )
-        if self.height and not CSS_HEIGHT_RE.match(self.height):
+        if self.height and not CSS_RE.match(self.height):
             raise ValidationError(
-                _('Height must be a positive integer followed by "px".')
+                _('Height must be a positive integer followed by "px" or "%".')
             )
