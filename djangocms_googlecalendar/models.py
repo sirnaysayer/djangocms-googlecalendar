@@ -18,7 +18,7 @@ from cms.models import CMSPlugin
 
 #CSS_WIDTH_RE = re.compile(r'^\d+(?:px|%)$')
 #CSS_HEIGHT_RE = re.compile(r'^\d+px$')
-CSS_RE = re.compile(r'^\d+(?:px|%)$')
+#CSS_RE = re.compile(r'^\d+(?:px|%)$')
 
 
 @python_2_unicode_compatible
@@ -74,12 +74,12 @@ class GoogleCalendar(CMSPlugin):
         display += '{0} x {1}'.format(self.width, self.height)
         return display
 
-    def clean(self):
-        if self.width and not CSS_RE.match(self.width):
-            raise ValidationError(
-                _('Width must be a positive integer followed by "px" or "%".')
-            )
-        if self.height and not CSS_RE.match(self.height):
-            raise ValidationError(
-                _('Height must be a positive integer followed by "px" or "%".')
-            )
+    # def clean(self):
+    #     if self.width and not CSS_RE.match(self.width):
+    #         raise ValidationError(
+    #             _('Width must be a positive integer followed by "px" or "%".')
+    #         )
+    #     if self.height and not CSS_RE.match(self.height):
+    #         raise ValidationError(
+    #             _('Height must be a positive integer followed by "px" or "%".')
+    #         )
