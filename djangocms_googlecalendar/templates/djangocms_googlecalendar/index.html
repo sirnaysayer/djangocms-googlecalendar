@@ -19,6 +19,12 @@
             $('.djangocms-googlecalendar').fullCalendar({
                 // put your options and callbacks here
 				themeSystem: 'bootstrap4',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,listMonth'
+                },
+                defaultView: 'listMonth',
                 googleCalendarApiKey: '{{ instance.api_key }}',
                 events: {
                     googleCalendarId: '{{ instance.calendar_id }}'
